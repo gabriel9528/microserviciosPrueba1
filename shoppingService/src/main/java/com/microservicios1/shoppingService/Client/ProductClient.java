@@ -6,10 +6,15 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RequestMapping(value = "/products")
+=======
+import org.springframework.web.bind.annotation.RequestParam;
+
+>>>>>>> 4c7e3195f8d0caeec3c4f775afcc03c5898f2c5f
 @FeignClient(name = "productService")
 public interface ProductClient {
     @GetMapping("/{id}")
