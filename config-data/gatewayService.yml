@@ -1,48 +1,27 @@
 server:
-  port: 8093
-  #http://localhost:8093:h2-console
-spring:
-  h2:
-    console:
-      enabled: true
-  datasource:
-    url: jdbc:h2:mem:productDB;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-    driverClassName: org.h2.Driver
-    platform: h2
-    username: gabriel
-    password: gabriel
-
-  jpa:
-    show-sql: true
-    hibernate:
-      ddl-auto: update
-    database-platform: org.hibernate.dialect.H2Dialect
-    properties:
-      hibernate:
-        show_sql: true
-        use_sql_comments: false
-        format_sql: false
-
-logging:
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+  port: 8080
 
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8099/eureka/
-      
-Feign:
-  hystrix:
-    enabled: true
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-
-
-
-
-
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: customerService
+          uri: lb://customerService
+          predicates:
+            - Path=/customers/**
+        - id: productService
+          uri: lb://productService
+          predicates:
+            - Path=/products/**
+        - id: shoppingService
+          uri: lb://shoppingService
+          predicates:
+            - Path=/invoices/**
