@@ -1,5 +1,6 @@
 package com.microservicios1.shoppingService.entity;
 
+import com.microservicios1.shoppingService.model.Product;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,7 +18,10 @@ public class InvoiceItem {
     @Positive(message = "El stock debe ser mayor que cero")
     private Double quantity;
 
-    private Double  price;
+    private Double price;
+
+    @Transient
+    private Product product;
 
     @Column(name = "product_id")
     private Long productId;
